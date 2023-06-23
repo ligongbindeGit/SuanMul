@@ -1,4 +1,4 @@
-void CcnRun();
-int main(){
-       CcnRun();
+#include "CcnSuanMul.h"
+int main(){Application run;
+
 }

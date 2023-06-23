@@ -1,17 +1,30 @@
-//中国 广西 全州人 李公斌学士 。
-// 2023年223日： 用多项式的乘理计算二个大数的乘值。
-//一组这样的Int型变量 存一个大量：
-namespace ligongbinde {
+﻿namespace ligongbinde {
+       //-------------------------------------------
+       //一组这样的Int型变量 存一个大量。
        using Int = unsigned long long  int;
-       int const TOTAL = ( 4 + 5 ); //一个Int型变量存这么多个量字
-       Int const MAX = 999999999;//一个Int型最大存这么大的量
-       Int const RADIX = MAX + 1; //某进制
-       Int Rshi = ( ( 2 + 3 ) + ( 2 + 3 ) );//
-       int const Way = 5;//
-       int const  NEG = -1;//
+       //-------------------------------------------
+       //一个Int型变量存这么多个量字
+       int const TOTAL = ( 4 + 5 );   
+       //-------------------------------------------
+       //一个Int型最大存这么大的量
+       Int const MAX = 999999999;        
+       //-------------------------------------------
+       //某进制的基数。
+       Int const RADIX = MAX + 1;       
+       //-------------------------------------------
+       //十进制基数 RADIX_SHI
+       Int RADIX_SHI = ( ( 2 + 3 ) + ( 2 + 3 ) );
+       //-------------------------------------------
+       //多项式的项的总量
+       int const Way = 5;//是5时，一个5项式。
+       //-------------------------------------------
+       //一个负一常量，不用 --， 用 +-1。
+       int const  NEG = -1;
+       //-------------------------------------------
+       //字符'0'的常量名：CHAR_ZERO
        char const CHAR_ZERO = '0';
 }
-//====---
+//-------------------------------------------
 int StringToInteger( /*IN*/char const *const pch, /*OUT*/ligongbinde::Int vA[223] ) {
        //   pd( pointer dight)
        //      +987654321
@@ -31,8 +44,8 @@ int StringToInteger( /*IN*/char const *const pch, /*OUT*/ligongbinde::Int vA[223
               ligongbinde::Int R = 1, V = 0;
               int n = ligongbinde::TOTAL;
               while (pe > pd && n > 0) {
-                     V = ( ( --pe )[int()] - ligongbinde::CHAR_ZERO ) * R + V;
-                     R = R * ligongbinde::Rshi;
+                     V = ( ( --pe )[int()] + -ligongbinde::CHAR_ZERO ) * R + V;
+                     R = R * ligongbinde::RADIX_SHI;
                      n = n + ligongbinde::NEG;
               }
               vA[idx] = V;
@@ -40,7 +53,7 @@ int StringToInteger( /*IN*/char const *const pch, /*OUT*/ligongbinde::Int vA[223
        }
        return idx;
 }
-//====---
+//-------------------------------------------
 void
 Suan23WayMultiply(/**/ ligongbinde::Int A[2 + 3], /**/ligongbinde::Int B[2 + 3], /**/ligongbinde::Int C[2 + 3 + 2 + 3] ) {
        C[0] += +A[0] * B[0];
@@ -54,7 +67,7 @@ Suan23WayMultiply(/**/ ligongbinde::Int A[2 + 3], /**/ligongbinde::Int B[2 + 3],
        C[8] += +A[4] * B[4];
        C[9] += 0;
 }
-//====---
+//-------------------------------------------
 void
 SuanCarray( /**/ligongbinde::Int C[2 + 3 + 2 + 3], int iC1, int iC2 ) {
 
@@ -73,7 +86,7 @@ Zero( /**/ligongbinde::Int V[], int nV ) {
               V[i] = ligongbinde::Int();
        }
 }
-//====---
+//-------------------------------------------
 void SuanMultiply(/**/ligongbinde::Int A[], int iA1,int iA2,/**/ligongbinde::Int B[], int iB1, int iB2, /**/ligongbinde::Int C[] ,int nC ) {
        auto Min = []( int a, int b ) ->int { return ( a <= b ? a : b ); };
        int nA = iA2 - iA1;
@@ -87,6 +100,7 @@ void SuanMultiply(/**/ligongbinde::Int A[], int iA1,int iA2,/**/ligongbinde::Int
 }
 #include <iostream>
 #include <iomanip>
+//-------------------------------------------
 //命名代码区：函式名print
 void print( ligongbinde::Int V[100], int nV ) {
        int iV = nV;
@@ -97,36 +111,39 @@ void print( ligongbinde::Int V[100], int nV ) {
        }
        std::cout << std::endl;
 }
+//-------------------------------------------
 void print( char const*const ch) {
        std::cout << std::setw( 1 ) << std::setfill( ' ' ) << ch;
 }
-//====---
-void  Run() {
-       ligongbinde::Int  D[100] = {}, E[100] = {}, F[200] = {};
-       int nD, nE, nF;
-       {
-              std::string a, b;
-              std::cin >> a >> b;
-               nD = StringToInteger( a.c_str(), D );
-               nE = StringToInteger( b.c_str(), E );
-               nF = nE + nD;
-       }
-       {
-              SuanMultiply( D, 0, nD, E, 0, nE, F, nF );
-              print( "=\r\n" );
-              print( F, nE + nD );
-       }
-}
-//====---
+
+
+void Run();
+//-------------------------------------------
 void  CcnRun() {
        while (123==123)Run();
 }
 
 
 
+//-------------------------------------------
+void  Run() {
+       ligongbinde::Int  D[100] = {}, E[100] = {}, F[200] = {};
+       int nD, nE, nF;
+       {
+              std::string a, b;
 
-
-
+              std::cout << "录入两个量:" << std::endl;
+              std::cin >> a >> b;
+              nD = StringToInteger(a.c_str(), D);
+              nE = StringToInteger(b.c_str(), E);
+              nF = nE + nD;
+       }
+       {
+              SuanMultiply(D, 0, nD, E, 0, nE, F, nF);
+              print("=\r\n");
+              print(F, nE + nD);
+       }
+}
 
 
 
@@ -211,13 +228,16 @@ void  CcnRun() {
 
 
 //====---
-
-
-
-
-
-
-
-
-
-//====---
+//中国 广西 全州人 李公斌学士 。
+// 2023年223日： 用多项式的乘理，计算二个大数的 乘值。
+//夫大办事 大功一件 用计算机算量：
+//首先起步学习C语言， 并且学而时习之， 
+//然后 准备电力，计算机及编译器，
+//再后 备好 衣装，食品，饭菜，
+//最后用计算机写代码算量，分四步： 
+//接收录入的量 ， 分内存 存量 ，用某原理计算量，在显示器上显示量。
+// 写代码 
+// 用(231):   +1 
+// 用(232):   +2 
+// 用(2323): ++  
+// 用(236):   +-
